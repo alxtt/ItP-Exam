@@ -22,6 +22,15 @@ public:
         m_y = y;
     }
 
+    double getX()
+    {
+        return m_x;
+    }
+    double getY()
+    {
+        return m_y;
+    }
+
     mirror(double A, double B, double C) {
         double norm = sqrt(A*A + B*B);
         double len = 2*((A/norm)*m_x + (B/norm)*m_y);
@@ -29,7 +38,7 @@ public:
         setY(m_y - len*m_y);
     };
 
-protected:
+private:
     double m_x;
     double m_y;
 };
@@ -46,13 +55,18 @@ public:
         m_center = p;
 	};
 
+	Point* getCenter() {
+        return m_center;
+	};
+
     mirror(double A, double B, double C) {
         double norm = sqrt(A*A + B*B);
-        double len = 2*((A/norm)*m_x + (B/norm)*m_y);
-        setCenter(Point(m_x - len*m_x, m_y - len*m_y));
+        double len = 2*((A/norm)*m_center->getX() + (B/norm)*m_center->getY());
+        Point t = Point(m_center->getX() - len*m_center->getX(), m_center->getY() - len*m_center->getY());
+        setCenter(&t);
     };
 
-protected:
+private:
 	Point* m_center;
 	double m_radius;
 };
